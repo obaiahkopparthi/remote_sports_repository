@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <title>REPORT PAGE </title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% block content %}
+    <div class="container">
+<div class="row">
+    <div class="offset-md-3 col-md-6 ">
+        {% if fdata %}
+        <h3>OUR MATCH REPORTS are...</h3>
+        {% endif %}
+        {% if fdata %}
+            {% for i in fdata %}
+                {% if i.matchrating >= 6 and i.matchrating <= 20 %}
+                <b id="name1"> Report_name:{{ i.report_name|capfirst }}</b><br>
+                                Report_status: {{ i.Report_status }}<br>
+                                Report_coach: {{ i.Report_coach }}<br>
+                                Report_umpire:{{  i.report_umpire }}<br>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h1>no Match reports are available ...</h1>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <h3>please enter your match report</h3>
+            {{ tform }}<br>
+            <center>
+                <input type="submit" value="Send" class="btn btn-success">
+                <input type="reset" value="Clear" class="btn btn-danger">
+            </center>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>
+

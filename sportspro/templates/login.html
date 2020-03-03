@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<html>
+<head>
+    <title>LoginForm</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="offset-md-4 col-md-4">
+            <form method="post">
+                <h2 class="text-center bg-dark text-white">Login Here..</h2>
+                {% csrf_token %}
+                {{ lform }}<br>
+                <center>
+                    <input type="submit" value="Submit" class="btn btn-success">
+                    <input type="reset" value="Clear" class="btn btn-danger"><br>
+                    <a href="/registration/">new user</a>
+                </center>
+            </form>
+        </div>
+    </div>
+</div>
+{%  endblock %}
+</body>
+</html>

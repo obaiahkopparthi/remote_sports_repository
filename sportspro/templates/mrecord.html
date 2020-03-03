@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% comment %}
+{% extends 'base.html' %}
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <title>match record page</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% block content %}
+    <style>
+    table{
+        width: 100%;
+        text-align: center;
+    }
+    td,th{
+        padding: 6px 0px;
+    }
+    tbody:nth-of-type(odd){
+        background-color: deeppink;
+        color: white;
+    }
+    tbody:nth-of-type(even){
+        background-color: orange;
+        color: white;
+    }
+    thead{
+        background-color: lime;
+        color: white;
+    }
+    body{
+        background-color: aqua;
+    }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST">
+                    {% if matches %}
+                    {% csrf_token %}
+                    {{ mform }}<br>
+                        <center>
+                            <h1>Available Matches Are....</h1>
+                        </center>
+                </form>
+                <table border="2px">
+                    <thead>
+                        <tr>
+                            <th>Match Name</th>
+                            <th>Match Status</th>
+                            <th>Match Coach</th>
+                            <th>Match Umpire</th>
+                            <th>Match Number</th>
+                        </tr>
+                    </thead>
+                    {% for i in matches %}
+                        <tbody>
+                        <tr>
+                            <td>{{ i.match_name }}</td>
+                            <td>{{ i.match_status }}</td>
+                            <td>{{ i.match_coach }}</td>
+                            <td>{{ i.match_umpire }}</td>
+                            <td>{{ i.match_number }}</td>
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+                {% else %}
+            <h1> No matches Are Available </h1>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
+{% endcomment %}
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <title>RECORDS PAGE </title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% block content %}
+    <div class="container">
+<div class="row">
+    <div class="offset-md-3 col-md-6 ">
+        {% if fdata %}
+        <h3> MATCH RECORDS are...</h3>
+        {% endif %}
+        {% if fdata %}
+            {% for i in fdata %}
+                {% if i.match_number >= 6 and i.match_number <= 20 %}
+                <b id="name1"> match_name:{{ i.match_name|capfirst }}</b><br>
+                                match_status: {{ i.match_status }}<br>
+                                match_coach: {{ i.match_coach }}<br>
+                                match_umpire:{{  i.match_umpire }}<br>
+                                match_number:{{  i.match_number }}<br>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h1> NO Match records are available ...</h1>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <h3>please enter your match record</h3>
+            {{ mform }}<br>
+            <center>
+                <input type="submit" value="Send" class="btn btn-success">
+                <input type="reset" value="Clear" class="btn btn-danger">
+            </center>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>
+
